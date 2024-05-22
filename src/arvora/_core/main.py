@@ -23,8 +23,8 @@ Changelog
 
 """
 # Então, basicamente ele está transformando essa string com esses nomes em duas listas de substrings e juntando elas com o zip, e depois, transformando elas em uma tupla dos elementos dessa junção das sublistas. Aqui tem as partes do menu. Uma tupla é uma sequência imutável de valores. A função zip combina duas listas, combina o primeiro elemento da lista 1 com o primeiro elememto da lista 2. A função slip faz com que a string se transforme em uma lista de substrings.
-MENU_OPTIONS = tuple(zip("PROJETO CONHECIMENTO PESQUISA PERGUNTAS LOGIN USER RASCUNHO ESCREVER ARTIGO".split(),
-                         "bars-progress book book-medical question right-to-bracket user".split()))
+MENU_OPTIONS = tuple(zip("PROJETO CONHECIMENTO PESQUISA LOGIN USER RASCUNHO ESCREVER ARTIGO".split(),
+                         "bars-progress book book-medical right-to-bracket user".split()))
 
 import json
 # Aqui uma base de página é criado.
@@ -145,13 +145,10 @@ class LoginPage(SimplePage):
         # Pegando os dados informados para login
         email = doc["email"].value
         password = doc["password"].value
+
         doc["email"].value = ""
         doc["password"].value = ""
         #verificando se os dados estão corretos
-
-
-
-
 
         data = {
             "email": email,
@@ -161,7 +158,6 @@ class LoginPage(SimplePage):
         self.write(data)
         # USER_OPTIONS = form.elements["username"].value
         # Arvora.ARVORA.user(form.elements["username"].value)
-
 
     def build_body(self):
         def click(ev):
@@ -195,7 +191,7 @@ class LoginPage(SimplePage):
         # psw = h.DIV(h.LABEL("Password", For="Name") + self.passd, Class="field")
         # self.login = h.INPUT(Id="username", Class="input is-primary", type="email", placeholder="Email address")
         # eid = h.DIV(h.LABEL("Email", For="email") + self.login,  Class="field")
-        link = h.A("Se cadastre aqui", Id='cadastro', Class = "has-text-dark")
+        link = h.A("Se cadastre aqui", Id='cadastro', Class="button is-text")
         linkD = h.DIV(link, Class="field column is-half is-offset-one-quarter", style="width:500px;")
         finall = h.DIV(linkD, Class="columns is-mobile")
         link.bind("click", click)
@@ -207,9 +203,9 @@ class LoginPage(SimplePage):
         cls = h.DIV(form, Class="columns is-flex is-centered")
         return cls
 
-class CadastroPage(SimplePage):
+class SignupPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
-        super().__init__(brython, menu, hero="main_pesquisa")
+        super().__init__(brython, menu, hero="main_hero")
 
     def click(self, ev=None):
 
@@ -271,7 +267,7 @@ class CadastroPage(SimplePage):
 
         #senha
         pas = h.LABEL('Senha', Class="label mt-4", style="text-align: left;")
-        pasI = h.INPUT(Id="password", Class="input is-success", type="text")
+        pasI = h.INPUT(Id="password", Class="input is-success", type="text", placeholder="Senha")
         pasC = h.DIV(pasI, Class="control")
         pasD = h.DIV((pas, pasC), Class="field column is-half is-offset-one-quarter", style="width:500px;")
         finalg = h.DIV(pasD, Class="columns is-mobile")
@@ -287,17 +283,6 @@ class CadastroPage(SimplePage):
 
         return form
 
-class PesquisaPage(SimplePage):
-    def __init__(self, brython, menu=MENU_OPTIONS):
-        super().__init__(brython, menu, hero="main_pesquisa")
-
-    def build_body(self):
-        h = self.brython.html
-        img = h.IMG(src="/src/arvora/_media/arvora_logo.png", Class="img_logo")
-        log = h.IMG(src="/src/arvora/_media/lupa.svg", style="width: 365px;")
-        pes = h.INPUT(log, type="text", Class="input is-success is-rounded mt-5 input-icon", placeholder="Rounded in", style="width: 1000px;")
-        but = h.BUTTON("Pesquisar", Class="button is-success is-rounded mt-5 is-responsive", width="68")
-        return h.DIV((img,pes,but))
 class ProjectPage(SimplePage):
     def __init__(self, brython, menu=MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
@@ -359,96 +344,16 @@ class ProjectPage(SimplePage):
 
 users = [
     {
-        "name": "Roberto",
-        "email": "roberto@mail",
+        "name": "name",
+        "email": "email",
         "points": "100",
         "id": "1",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "tags": "#mav",
-        "date": "2021-01-21"
-    },
-    {
-        "name": "Amanda",
-        "email": "amanda@mail",
-        "points": "72",
-        "id": "2",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "tags": "#mav",
-        "date": "2021-01-21"
-    },
-    {
-        "name": "Roberto",
-        "email": "roberto@mail",
-        "points": "100",
-        "id": "1",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "tags": "#mav",
-        "date": "2021-01-21"
-    },
-    {
-        "name": "Amanda",
-        "email": "amanda@mail",
-        "points": "72",
-        "id": "2",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        "tags": "#mav",
-        "date": "2021-01-21"
-    },
-    {
-        "name": "Amanda",
-        "password": "1234",
-        "email": "amanda@mail",
-        "posts":[
-            {
-                "id": "1",
-                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                "tags": "#mav",
-                "date": "2021-01-21"
-            },
-        ]
-     },]
+        "text": "text",
+        "tags": "#",
+        "date": ""}]
 
 
 class KnowledgePage(SimplePage):
-    # def refresh(ev):
-    #     def on_complete(req):
-    #         if req.status == 200:
-    #             text = req.text
-    #             try:
-    #                 drafts = json.loads(text)
-    #
-    #             except:
-    #                 drafts = [{"title": "Rascunho 1", "abstract": "resumo"},
-    #                           {"title": "Rascunho 2", "abstract": "resumo 2"},
-    #                           {"title": "Rascunho 3", "abstract": "resumo 3"}]
-    #             show(drafts)
-    #
-    #     req = ajax.Ajax()
-    #     req.bind('complete', on_complete)
-    #     req.open('GET', '/load-article', True)
-    #     req.set_header('content-type', 'application/json')
-    #     req.send()
-    #
-    # def show(drafts):
-    #     tor = []
-    #     # Loop que mostra as páginas de rascunho
-    #     for d in drafts:
-    #         print("u")
-    #
-    #         title = d.get("title")
-    #         body = d.get("body")
-    #
-    #         tit = h.P(title, Class='title is-4')
-    #         abst = h.P(body, Class='text is-6')
-    #         btnd = h.BUTTON("Deletar", Class="button is-danger is-rounded mt-5 is-responsive block is-fullwidth",
-    #                         type='submit')
-    #
-    #         # todos os rascunhos
-    #         tor.append(h.DIV((tit, abst, btnd), Class='box'))
-    #     wrp.clear()
-    #     wrp <= h.DIV((bt, tor), Class="column body-columns")
-    #
-    #     return wrp
 
     def __init__(self, brython, menu = MENU_OPTIONS):
         super().__init__(brython, menu, hero="main_hero")
@@ -465,7 +370,7 @@ class KnowledgePage(SimplePage):
         ajax = self.brython.ajax
         h = self.brython.html
 
-        posts = h.P("Error")
+        posts = h.P("Nenhum artigo publicado ainda")
         def get_article():
             def on_complete(req):
                 if req.status == 200:
@@ -490,28 +395,21 @@ class KnowledgePage(SimplePage):
             search_bar = h.FORM(h.DIV(
                 h.INPUT(type="text", Class="input is-success is-rounded mt-5 input-icon green-placeholder",
                         placeholder="Pesquise aqui"), Class="column"))
+
             # Loop que mostra as páginas de rascunho
             for article in articles:
-                card_img = h.FIGURE(h.IMG(src="https://bulma.io/images/placeholders/256x256.png"),
-                                    Class="card-image image is-4by3")
-
                 card_content = h.DIV((
-                    h.FIGURE(
-                        (h.IMG(src="https://res.cloudinary.com/ameo/image/upload/v1639144778/typocat_svbspx.png")),
-                        Class="media-left image is-48x48"),
-                    h.P(article.get("title"), Class="title is-4"),
-                    h.P("email", Class="subtitle is-6"),
-                    h.P("Estrelas: " + "10"),
-                    h.P(article.get("body")),
-                    h.P("tags"),
-                    h.P("data")), Class="content")
+                    h.P(article.get("title"), Class="title is-2"),
+                    h.P(("Email:user@email", " Estrelas: " + "10"), Class="subtitle is-6"),
+                    h.P(article.get("body"), Class="subtitle is-3"),
+                    h.P("tags" + "  data")), Class="content")
 
                 card_buttons = h.DIV((
-                    h.BUTTON("Comentar", Class="button is-primary"),
-                    h.BUTTON("Perguntar", Class="button is-info"),
-                    h.BUTTON("Artigos Filhos", Class="button")), Class="card-footer")
+                    h.BUTTON("Comentar", Class="button is-primary mr-5 ml-6"),
+                    h.BUTTON("Perguntar", Class="button is-info mr-5"),
+                    h.BUTTON("Artigos Filhos", Class="button")), Class="card-footer ml-6")
 
-                card += h.DIV((card_img, card_content, card_buttons), Class="box").bind("click", self.show_article)
+                card += h.DIV((card_content, card_buttons), Class="box").bind("click", self.show_article)
             post = h.DIV((search_bar, card), Class="column is-half is-offset-one-quarter ")
             posts.clear()
             posts <= h.DIV(post, Class="columns body-columns")
@@ -538,42 +436,23 @@ class Article(SimplePage):
         h = self.brython.html
         user = users[0]
 
-
-        card_img = h.FIGURE(h.IMG(src="https://bulma.io/images/placeholders/256x256.png"),
-                            Class="card-image image is-4by3")
-
         card_content = h.DIV((
-            h.FIGURE((h.IMG(src="https://res.cloudinary.com/ameo/image/upload/v1639144778/typocat_svbspx.png")),
-                     Class="media-left image is-48x48"),
-            h.P(user["name"], Class="title is-4"),
-            h.P(user["email"], Class="subtitle is-6"),
-            h.P("Estrelas: " + user["points"]),
-            h.P(user["text"]),
-            h.P(user["tags"]),
-            h.P(user["date"])), Class="content")
+            h.H1(user["name"], Class="title is-4"),
+            h.H1((user["email"], "Estrelas: " + user["points"]), Class="subtitle is-6"),
+            h.P(user["text"], Class="is-2"),
+            h.H1(user["tags"]),
+            h.H1(user["date"])), Class="content")
 
         card_buttons = h.DIV((
-            h.BUTTON("Comentar", Class="button is-primary"),
-            h.BUTTON("Perguntar", Class="button is-info"),
-            h.BUTTON("Artigos Filhos", Class="button")), Class="card-footer")
-
-
-
-
-
-        #comment section
-
-
-
+            h.BUTTON("Comentar", Class="button is-primary mr-5 ml-6"),
+            h.BUTTON("Perguntar", Class="button is-info mr-5"),
+            h.BUTTON("Artigos Filhos", Class="button")), Class="card-footer ml-6")
 
         #user comment
-        user_photo = h.FIGURE(
-            h.P((h.IMG(src="https://bulma.io/images/placeholders/128x128.png")), Class="image is-64x64"),
-            Class="media-left")
         comment_box = h.DIV(h.TEXTAREA(placeholder = "Escreva aqui...", Class = " Focused textarea is-success has-fixed-size has-text-success-dark"), Class = "media-content field control")
-        comment_section = h.ARTICLE((user_photo, comment_box), Class="media mt-5")
+        comment_section = h.ARTICLE(comment_box, Class="media mt-5")
 
-        card = h.DIV((card_img, card_content, card_buttons, comment_section), Class="box")
+        card = h.DIV((card_content, card_buttons, comment_section), Class="box")
         post = h.DIV(card, Class="column is-half is-offset-one-quarter ")
         posts = h.DIV(post, Class="columns body-columns")
 
@@ -701,6 +580,18 @@ class DraftPage(SimplePage):
 
         return wrp
 
+class PesquisaPage(SimplePage):
+    def __init__(self, brython, menu=MENU_OPTIONS):
+        super().__init__(brython, menu, hero="main_hero")
+
+    def build_body(self):
+        h = self.brython.html
+        img = h.IMG(src="/src/arvora/_media/arvora_logo.png", Class="img_logo")
+        log = h.IMG(src="/src/arvora/_media/lupa.svg", style="width: 365px;")
+        pes = h.INPUT(log, type="text", Class="input is-success is-rounded mt-5 input-icon", placeholder="Rounded in", style="width: 1000px;")
+        but = h.BUTTON("Pesquisar", Class="button is-success is-rounded mt-5 is-responsive", width="68")
+        return h.DIV((img,pes,but))
+
 class Arvora:
     ARVORA = None
 
@@ -724,11 +615,10 @@ class Arvora:
         SimplePage.PAGES["_MAIN_"] = LandingPage(br)
         SimplePage.PAGES["_PESQUISA_"] = PesquisaPage(br)
         SimplePage.PAGES["_LOGIN_"] = LoginPage(br)
-        SimplePage.PAGES['_CADASTRO_'] = CadastroPage(br)
+        SimplePage.PAGES['_CADASTRO_'] = SignupPage(br)
         SimplePage.PAGES["_PROJETO_"] = ProjectPage(br)
         SimplePage.PAGES["_CONHECIMENTO_"] = KnowledgePage(br)
         SimplePage.PAGES["_ARTIGO_"] = Article(br)
-        # SimplePage.PAGES['_PERGUNTAS_'] = QuestionsPage(br)
         SimplePage.PAGES["_RASCUNHO_"] = DraftPage(br)
         SimplePage.PAGES["_ESCREVER_"] = WritingPage(br)
 
